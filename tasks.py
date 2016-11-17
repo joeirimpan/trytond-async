@@ -80,6 +80,6 @@ def _execute(app, database, user, payload_json):
             return results
 
 
-@app.task(bind=True, default_retry_delay=2)
+@app.task(bind=True, default_retry_delay=2, rate_limit="1/s")
 def execute(app, database, user, payload_json):
     return _execute(app, database, user, payload_json)
